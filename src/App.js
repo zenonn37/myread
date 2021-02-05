@@ -12,25 +12,46 @@ const SHELF_3 = "read";
 
 
 class BooksApp extends React.Component {
+
   state = {
     books:[],
    
   }
 
   componentDidMount(){
-    BooksAPI.getAll()
-      .then((data) =>{
-           console.log(data);
-           this.setState(() =>({
-             books:data
-           }))
-       
-         
-      })
+    this.loadAllData();
   }
 
-  shelfHandler = (e) =>{
+  loadAllData = () => {
+    BooksAPI.getAll()
+    .then((data) =>{
+         
+         this.setState(() =>({
+           books:data
+         }))
+     
+       
+    })
+  }
 
+  shelfHandler = (shelf,book) =>{
+       //do not allow the none option to be passed to update call
+        if (shelf === "none") return;        
+              
+       
+          
+        
+     BooksAPI.update(book,shelf)
+      .then(() =>{
+     
+        const update = this.state.books.map((b) => b.id === book.id ? {...b,shelf:shelf} : b)
+       
+        this.setState(() =>({
+          books:update
+        }))
+   
+      })
+  
   } 
   
 
