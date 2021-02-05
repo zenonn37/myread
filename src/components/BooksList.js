@@ -3,7 +3,7 @@ import SelectComp from './Select'
 
 
 const BookList = () => (
-  <>
+  
         
                     <li>
                         <div className="book">
@@ -17,7 +17,7 @@ const BookList = () => (
                             <div className="book-authors">Orson Scott Card</div>
                         </div>
                     </li>
-  </>
+  
   
 
 
