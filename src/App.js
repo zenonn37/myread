@@ -32,6 +32,10 @@ class BooksApp extends React.Component {
       })
   }
 
+  shelfHandler = (e) =>{
+
+  }
+
  
 
   render() {
@@ -49,9 +53,9 @@ class BooksApp extends React.Component {
               <Header/>
             <div className="list-books-content">
               <div>
-                 <Books shelf={shelf_1} current={shelf_current}/>
-                 <Books shelf={shelf_2} want={shelf_want}/>
-                 <Books shelf={shelf_3} read={self_read}/>
+                 <Books shelf={shelf_1} books={shelf_current} shelfHandler={this.shelfHandler}/>
+                 <Books shelf={shelf_2} books={shelf_want} shelfHandler={this.shelfHandler}/>
+                 <Books shelf={shelf_3} books={self_read} shelfHandler={this.shelfHandler}/>
          
              
               </div>

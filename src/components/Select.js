@@ -2,11 +2,11 @@ import React from 'react'
 
 
 
-const SelectComp  = () => {
+const SelectComp  = ({shelf,shelfHandler}) => {
 
     return(
 
-    <select>
+    <select value={shelf} onChange={shelfHandler}>
     <option value="move" disabled>Move to...</option>
     <option value="currentlyReading">Currently Reading</option>
     <option value="wantToRead">Want to Read</option>
