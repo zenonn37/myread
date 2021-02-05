@@ -1,12 +1,18 @@
 import React from "react";
+import { Link, useHistory } from "react-router-dom";
+import BookList from "./BooksList";
 
+const Search = ({books}) => {
 
-const Search = () => (
+  const history = useHistory();
 
-
+  const goBack = () =>  {
+    history.push('/')
+  }
+  return(
 <div className="search-books">
             <div className="search-books-bar">
-              <button className="close-search">Close</button>
+              <button className="close-search" onClick={()=> goBack()}>Close</button>
               <div className="search-books-input-wrapper">
                 {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -22,14 +28,15 @@ const Search = () => (
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                  
+                  {/* <BookList books={books}/> */}
               </ol>
             </div>
           </div>
 
+  );
 
 
-)
+              }
 
 
 export default Search
