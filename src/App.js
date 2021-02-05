@@ -5,45 +5,41 @@ import Books from './components/Books'
 import Header from './components/Header'
 import Search from './components/Search'
 
+
+const SHELF_1 = "currentlyReading";
+const SHELF_2 = "wantToRead";
+const SHELF_3 = "read";
+
+
 class BooksApp extends React.Component {
   state = {
     books:[],
-    shelf_current:[],
-    self_read:[],
-    shelf_want:[]
+   
   }
 
   componentDidMount(){
     BooksAPI.getAll()
       .then((data) =>{
-          
+           console.log(data);
            this.setState(() =>({
              books:data
            }))
-           this.setState(() =>({
-            shelf_current:data.filter((current) => current.shelf === "currentlyReading")
-          }))
-          this.setState(() =>({
-            shelf_want:data.filter((current) => current.shelf === "wantToRead")
-          }))
-          this.setState(() =>({
-            self_read:data.filter((current) => current.shelf === "read")
-          }))
+       
+         
       })
   }
 
   shelfHandler = (e) =>{
 
-  }
+  } 
+  
 
  
 
   render() {
-    const shelf_1 = "Currently Reading";
-    const shelf_2 = "Want to Read";
-    const shelf_3 = "Read";
-
-    const {shelf_current, self_read, shelf_want} = this.state
+   
+   
+    const {books} = this.state
     return (
       <div className="app">
        
@@ -53,15 +49,15 @@ class BooksApp extends React.Component {
               <Header/>
             <div className="list-books-content">
               <div>
-                 <Books shelf={shelf_1} books={shelf_current} shelfHandler={this.shelfHandler}/>
-                 <Books shelf={shelf_2} books={shelf_want} shelfHandler={this.shelfHandler}/>
-                 <Books shelf={shelf_3} books={self_read} shelfHandler={this.shelfHandler}/>
+                 <Books status={SHELF_1} books={books} shelfHandler={this.shelfHandler}/>
+                 <Books status={SHELF_2} books={books} shelfHandler={this.shelfHandler}/>
+                 <Books status={SHELF_3} books={books} shelfHandler={this.shelfHandler}/>
          
              
               </div>
             </div>
             <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+              <button onClick={() => {}}>Add a book</button>
             </div>
           </div>
           </div>
