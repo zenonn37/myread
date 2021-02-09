@@ -7,7 +7,7 @@ const BookList = ({books,shelfHandler}) => {
 
     const {title, authors,imageLinks,shelf} = books
     
-     return(
+   return(
   
         
                     <motion.li   
@@ -21,9 +21,9 @@ const BookList = ({books,shelfHandler}) => {
                             </div>
                             <div className="book-title">{title}</div>
                             <div className="book-authors">
-                                {authors.map((author) =>(
+                                {/* {authors.map((author) =>(
                                     <span key={author}>{author}</span>
-                                ))}
+                                ))} */}
                             </div>
                         </div>
                     </motion.li>
