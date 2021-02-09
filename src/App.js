@@ -57,6 +57,13 @@ class BooksApp extends React.Component {
       })
   
   } 
+
+  addNewBook = (book) => {
+     console.log(book);
+    this.setState((currentState) =>({
+      books:currentState.books.concat([book])
+    }))
+  }
   
 
  
@@ -69,7 +76,7 @@ class BooksApp extends React.Component {
       <div className="app">
          <Route path="/search" render={() => (
 
-               <Search books={books}/>
+               <Search books={books} addNewBook={this.addNewBook}/>
 
          )}/>
          
