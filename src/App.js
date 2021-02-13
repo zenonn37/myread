@@ -7,7 +7,7 @@ import './App.css'
 import Books from './components/Books'
 import Header from './components/Header'
 import Search from './components/Search'
-import { Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 
 const SHELF_1 = "currentlyReading";
@@ -93,7 +93,9 @@ class BooksApp extends React.Component {
             </div>
           </div>
           <div className="open-search">
-            <button onClick={() => {}}>Add a book</button>
+            <Link to="/search">
+            <button>Add a book</button>
+            </Link>
           </div>
         </div>
           )}/>
