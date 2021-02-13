@@ -15,15 +15,12 @@ class Search extends React.Component {
   
   goBack = () =>  {
     const history = useHistory();
-    history.push('/')
+    history.push('/');
   }
 
   
 
-  searchBooks = (query) => {
-
-
-      
+  searchBooks = (query) => {      
     //do not allow empty query string to server
     if (query === ""){
       
@@ -54,7 +51,7 @@ class Search extends React.Component {
 
         const bkShelf = this.props.books;
        
-        let shelf =[]
+        let shelf =[];
        
         data.find(el1=>{
           var matched = bkShelf.find(el2 => {
@@ -73,12 +70,12 @@ class Search extends React.Component {
         shelf:'none'
     }));
 
-     const appendShelf = [...shelf, ...sFinal]
+     const appendShelf = [...shelf, ...sFinal];
 
 
     const view = Array.from(new Set(appendShelf.map(a => a.id)))
     .map(id => {
-      return appendShelf.find(a => a.id === id)
+      return appendShelf.find(a => a.id === id);
     })
    
     
@@ -166,9 +163,7 @@ class Search extends React.Component {
                   
                     search.map((search) =>(
                       <BookList books={search} key={search.id} shelfHandler={this.shelfHandler}/>
-                      // <div key={s.id}>
-                      //   {s.title}
-                      // </div>
+                      
                     ))
                    ) :
                    (
