@@ -47,8 +47,8 @@ class BooksApp extends React.Component {
         
      BooksAPI.update(book,shelf)
       .then(() =>{
-     
-        const update = this.state.books.map((b) => b.id === book.id ? {...b,shelf:shelf} : b)
+       //refactor code
+        const update = this.state.books.map((b) => b.id === book.id ? {...b,shelf:shelf} : b);
        
         this.setState(() =>({
           books:update
@@ -59,8 +59,7 @@ class BooksApp extends React.Component {
   } 
 
   addNewBook = (book) => {
-     console.log(book);
-    this.setState((currentState) =>({
+       this.setState((currentState) =>({
       books:currentState.books.concat([book])
     }))
   }
@@ -71,7 +70,7 @@ class BooksApp extends React.Component {
   render() {
    
    
-    const {books} = this.state
+    const {books} = this.state;
     return (
       <div className="app">
          <Route path="/search" render={() => (
@@ -109,4 +108,4 @@ class BooksApp extends React.Component {
   }
 }
 
-export default BooksApp
+export default BooksApp;
