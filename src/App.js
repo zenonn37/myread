@@ -19,14 +19,16 @@ class BooksApp extends React.Component {
    
   };
 
+  //load server book shelf data
   componentDidMount(){
     this.loadAllData();
   };
 
+  //book shelf api call function
   loadAllData = () => {
     BooksAPI.getAll()
     .then((data) =>{
-         
+         //set the state with results
          this.setState(() =>({
            books:data
          }));
@@ -35,6 +37,7 @@ class BooksApp extends React.Component {
     });
   };
 
+  //handle indvidual book status
   shelfHandler = (shelf,book) =>{
        //do not allow the none option to be passed to update call
         if (shelf === "none") return;        
