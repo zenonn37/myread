@@ -46,21 +46,20 @@ class Search extends React.Component {
 
         const bkShelf = this.props.books;
        
-        let shelf =[];
-        //find book shelf matches with search results
-        data.find(el1 => {
+       
 
-          var matched = bkShelf.find(el2 => {
-              
-              return el2.id === el1.id;
-          })
-          if (matched != null) shelf.push(matched);   
-          //return el1;      
-             
-      
-              
-          
+
+        let shelf =[];
+     //run through all search data and match any shelf data.
+     //if there is a match push to shelf array.
+      data.forEach(search => {
+        let match = bkShelf.find(shelf => {
+          return shelf.id === search.id
+        })
+        if (match != null) shelf.push(match);     
       });
+
+      
      //adds shelf attribute to raw data temp array
       const sFinal = data.map((e) =>({
         ...e,
