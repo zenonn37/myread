@@ -27,7 +27,7 @@ class Search extends React.Component {
       this.setState(() =>({
         search:[],
         query:false,
-      }))
+      }));
       return;
     };
      
@@ -40,7 +40,7 @@ class Search extends React.Component {
               this.setState(() =>({
                 search:[],
                 query:false,
-              }))
+              }));
               return;
         }
 
@@ -56,7 +56,7 @@ class Search extends React.Component {
         data.find(el1=>{
           var matched = bkShelf.find(el2 => {
               
-              return el2.id === el1.id
+              return el2.id === el1.id;
           })
           if (matched != null) shelf.push(matched);         
              
@@ -76,7 +76,7 @@ class Search extends React.Component {
     const view = Array.from(new Set(appendShelf.map(a => a.id)))
     .map(id => {
       return appendShelf.find(a => a.id === id);
-    })
+    });
    
     
 
@@ -102,15 +102,15 @@ class Search extends React.Component {
         this.setState(() =>({
           search:view,
           query:true,
-        }))
+        }));
        
        
 
        
      
-      })
+      });
      
-  }
+  };
 
   shelfHandler = (shelf,book) =>{
     //do not allow the none option to be passed to update call
@@ -122,15 +122,15 @@ class Search extends React.Component {
   BooksAPI.update(book,shelf)
    .then((data) =>{
   
-     const update = this.state.search.map((b) => b.id === book.id ? {...b,shelf:shelf} : b)
+     const update = this.state.search.map((b) => b.id === book.id ? {...b,shelf:shelf} : b);
     
      this.setState(() =>({
        search:update
-     }))
-     this.props.addNewBook({...book,shelf})
-   })
+     }));
+     this.props.addNewBook({...book,shelf});
+   });
 
-} 
+};
   render(){
      const { search, query} = this.state
   return(
@@ -177,10 +177,10 @@ class Search extends React.Component {
             </div>
           </div>
 
-  );
+   );
 
-              }
-              }
+  };
+};
 
 
 export default Search

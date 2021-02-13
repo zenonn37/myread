@@ -1,12 +1,9 @@
-import React from 'react'
-
-
-
-import * as BooksAPI from './BooksAPI'
-import './App.css'
-import Books from './components/Books'
-import Header from './components/Header'
-import Search from './components/Search'
+import React from 'react';
+import * as BooksAPI from './BooksAPI';
+import './App.css';
+import Books from './components/Books';
+import Header from './components/Header';
+import Search from './components/Search';
 import { Route, Link } from "react-router-dom";
 
 
@@ -20,11 +17,11 @@ class BooksApp extends React.Component {
   state = {
     books:[],
    
-  }
+  };
 
   componentDidMount(){
     this.loadAllData();
-  }
+  };
 
   loadAllData = () => {
     BooksAPI.getAll()
@@ -32,11 +29,11 @@ class BooksApp extends React.Component {
          
          this.setState(() =>({
            books:data
-         }))
+         }));
      
        
-    })
-  }
+    });
+  };
 
   shelfHandler = (shelf,book) =>{
        //do not allow the none option to be passed to update call
@@ -52,23 +49,22 @@ class BooksApp extends React.Component {
        
         this.setState(() =>({
           books:update
-        }))
+        }));
    
-      })
+      });
   
-  } 
+  };
 
   addNewBook = (book) => {
        this.setState((currentState) =>({
       books:currentState.books.concat([book])
-    }))
-  }
+    }));
+  };
   
 
  
 
-  render() {
-   
+  render() {   
    
     const {books} = this.state;
     return (
@@ -106,8 +102,8 @@ class BooksApp extends React.Component {
           </div>
         
     
-    )
-  }
-}
+    );
+  };
+};
 
 export default BooksApp;
