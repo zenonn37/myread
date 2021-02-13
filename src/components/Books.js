@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import BookList from './BooksList';
 
 
@@ -26,6 +26,6 @@ const Books = ({status,books,shelfHandler}) => {
             </div>
         </div>
     );
-                }
+};
 
 export default Books;

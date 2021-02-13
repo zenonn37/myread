@@ -1,13 +1,10 @@
-import React from 'react'
-
-
-
-import * as BooksAPI from './BooksAPI'
-import './App.css'
-import Books from './components/Books'
-import Header from './components/Header'
-import Search from './components/Search'
-import { Route } from "react-router-dom";
+import React from 'react';
+import * as BooksAPI from './BooksAPI';
+import './App.css';
+import Books from './components/Books';
+import Header from './components/Header';
+import Search from './components/Search';
+import { Route, Link } from "react-router-dom";
 
 
 const SHELF_1 = "currentlyReading";
@@ -20,24 +17,27 @@ class BooksApp extends React.Component {
   state = {
     books:[],
    
-  }
+  };
 
+  //load server book shelf data
   componentDidMount(){
     this.loadAllData();
-  }
+  };
 
+  //book shelf api call function
   loadAllData = () => {
     BooksAPI.getAll()
     .then((data) =>{
-         
+         //set the state with results
          this.setState(() =>({
            books:data
-         }))
+         }));
      
        
-    })
-  }
+    });
+  };
 
+  //handle indvidual book status
   shelfHandler = (shelf,book) =>{
        //do not allow the none option to be passed to update call
         if (shelf === "none") return;        
@@ -52,23 +52,22 @@ class BooksApp extends React.Component {
        
         this.setState(() =>({
           books:update
-        }))
+        }));
    
-      })
+      });
   
-  } 
+  };
 
   addNewBook = (book) => {
        this.setState((currentState) =>({
       books:currentState.books.concat([book])
-    }))
-  }
+    }));
+  };
   
 
  
 
-  render() {
-   
+  render() {   
    
     const {books} = this.state;
     return (
@@ -93,7 +92,9 @@ class BooksApp extends React.Component {
             </div>
           </div>
           <div className="open-search">
-            <button onClick={() => {}}>Add a book</button>
+            <Link to="/search">
+            <button>Add a book</button>
+            </Link>
           </div>
         </div>
           )}/>
@@ -104,8 +105,8 @@ class BooksApp extends React.Component {
           </div>
         
     
-    )
-  }
-}
+    );
+  };
+};
 
 export default BooksApp;

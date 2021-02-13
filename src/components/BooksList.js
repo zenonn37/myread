@@ -1,6 +1,6 @@
-import React from 'react'
-import SelectComp from './Select'
-import { motion } from "framer-motion"
+import React from 'react';
+import SelectComp from './Select';
+import { motion } from "framer-motion";
 
 
 const BookList = ({books,shelfHandler}) => {
@@ -39,6 +39,6 @@ const BookList = ({books,shelfHandler}) => {
   );
 
 
-}
+};
 
-export default BookList
+export default BookList;

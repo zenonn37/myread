@@ -1,5 +1,5 @@
-import React,{Component} from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import BookList from "./BooksList";
 import * as BooksAPI from '../BooksAPI'
 
@@ -13,34 +13,29 @@ class Search extends React.Component {
   }
 
   
-  goBack = () =>  {
-    const history = useHistory();
-    history.push('/');
-  }
-
   
 
   searchBooks = (query) => {      
     //do not allow empty query string to server
     if (query === ""){
-      
+       //set query guard to false
       this.setState(() =>({
         search:[],
         query:false,
-      }))
+      }));
       return;
     };
      
     
     BooksAPI.search(query)
       .then((data) =>{
-     
+         //handle query errors
         if (data.error === "undefined" || data.error === "empty query") {
-            
+              //set query guard to false
               this.setState(() =>({
                 search:[],
                 query:false,
-              }))
+              }));
               return;
         }
 
@@ -52,65 +47,49 @@ class Search extends React.Component {
         const bkShelf = this.props.books;
        
         let shelf =[];
-       
-        data.find(el1=>{
+        //find book shelf matches with search results
+        data.find(el1 => {
+
           var matched = bkShelf.find(el2 => {
               
-              return el2.id === el1.id
+              return el2.id === el1.id;
           })
-          if (matched != null) shelf.push(matched);         
+          if (matched != null) shelf.push(matched);   
+          //return el1;      
              
       
               
           
-      })
-
+      });
+     //adds shelf attribute to raw data temp array
       const sFinal = data.map((e) =>({
         ...e,
         shelf:'none'
     }));
-
+     //combine two shelf and updated search results 
      const appendShelf = [...shelf, ...sFinal];
 
-
+    //filter out all duplicates using Array SET
     const view = Array.from(new Set(appendShelf.map(a => a.id)))
     .map(id => {
       return appendShelf.find(a => a.id === id);
-    })
+    });
+      //set new state form new array
+      //set query guard to true                               
+    this.setState(() =>({
+      search:view,
+      query:true,
+    }));
    
-    
+   
 
-      // console.log(shelf);
-      // console.log(sFinal);
-      // console.log(appendShelf);
-      // console.log(view);
-
-
-        
-       
-      
-    
-      
-  
-
-      
-         
-       
+   
+ 
+  });     
+           
      
-        
-
-        this.setState(() =>({
-          search:view,
-          query:true,
-        }))
-       
-       
-
-       
      
-      })
-     
-  }
+  };
 
   shelfHandler = (shelf,book) =>{
     //do not allow the none option to be passed to update call
@@ -118,25 +97,28 @@ class Search extends React.Component {
            
     
        
-     
+     //add books to shelf from search
   BooksAPI.update(book,shelf)
    .then((data) =>{
   
-     const update = this.state.search.map((b) => b.id === book.id ? {...b,shelf:shelf} : b)
+      
+     const update = this.state.search.map((b) => b.id === book.id ? {...b,shelf:shelf} : b);
     
      this.setState(() =>({
        search:update
-     }))
-     this.props.addNewBook({...book,shelf})
-   })
+     }));
+     this.props.addNewBook({...book,shelf});
+   });
 
-} 
+};
   render(){
      const { search, query} = this.state
   return(
 <div className="search-books">
             <div className="search-books-bar">
-              <button className="close-search" onClick={()=> this.goBack()}>Close</button>
+              <Link to="/">
+              <button className="close-search">Close</button>
+              </Link>
               <div className="search-books-input-wrapper">
                 {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -175,10 +157,10 @@ class Search extends React.Component {
             </div>
           </div>
 
-  );
+   );
 
-              }
-              }
+  };
+};
 
 
 export default Search

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 
 
@@ -15,6 +15,6 @@ const SelectComp  = ({shelf,shelfHandler,book}) => {
   </select>
   );
 
-}
+};
 
-export default SelectComp
+export default SelectComp;
