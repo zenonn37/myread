@@ -42,6 +42,7 @@ body,
 }
 
 .bookshelf-title {
+  color: rgb(90, 90, 90);
   border-bottom: 1px solid #dedede;
 }
 
