@@ -1,22 +1,39 @@
 import React from 'react';
+import { motion } from "framer-motion";
+import { fadeInDown } from "../animations/fadeUpIn";
 
 
 
-const  Header = ({books}) => {
+
+
+const  Header = ({books,loading}) => {
          const bookCount = books.length
     return(
-        <>
+        <motion.div variants={fadeInDown}
+         initial="initial"
+          animate="animate">
         <div className="list-books">
         <div className="list-books-title">
-          <h1>MyReads</h1>
-          <h3>
+          <motion.h1
+          initial={{opacity:0}}
+          animate={{opacity:1}}
+           transition={{delay:2}}
+          >MyReads</motion.h1>
+
+          {loading ?  "" : ( 
+          <motion.h3  
+          initial={{x:100,opacity:0}}
+          animate={{x:0,opacity:1}}
+           transition={{delay:2.0}}
+          >
           Current Book Shelf : {bookCount}
-        </h3>
-        
+        </motion.h3>
+          )
+         } 
         </div>
       
         </div>
-    </>
+    </motion.div>
   );
 
 };

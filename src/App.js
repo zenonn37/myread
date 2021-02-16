@@ -98,7 +98,7 @@ class BooksApp extends React.Component {
             <div>
 
       
-            <Header books={books}/>
+            <Header books={books} loading={loading}/>
           <div className="list-books-content">
           {loading ? (
                    <Loader/>
