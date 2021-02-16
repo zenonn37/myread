@@ -58,10 +58,12 @@ class BooksApp extends React.Component {
      BooksAPI.update(book,shelf)
       .then(() =>{
        //refactor code
-        const update = this.state.books.map((b) => b.id === book.id ? {...b,shelf:shelf} : b);
+        const update = this.state.books.map((b) => b.id === book.id ? Object.assign({},b,{shelf:shelf}) : b);
+
+        const filterNone = update.filter((books) => books.shelf !== 'none')
        
         this.setState(() =>({
-          books:update
+          books:filterNone
         }));
    
       });
