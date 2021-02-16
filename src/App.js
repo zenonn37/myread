@@ -5,6 +5,10 @@ import Books from './components/Books';
 import Header from './components/Header';
 import Search from './components/Search';
 import { Route, Link } from "react-router-dom";
+import { motion } from 'framer-motion';
+import Loader from './components/Loader';
+
+
 
 
 const SHELF_1 = "currentlyReading";
@@ -17,6 +21,7 @@ class BooksApp extends React.Component {
 
   state = {
     books:[],
+    loading:true,
    
   };
 
@@ -27,11 +32,16 @@ class BooksApp extends React.Component {
 
   //book shelf api call function
   loadAllData = () => {
+    this.setState(() =>({
+      loading:true
+    }));
+   
     BooksAPI.getAll()
     .then((data) =>{
          //set the state with results
          this.setState(() =>({
-           books:data
+           books:data,
+           loading:false
          }));
      
        
@@ -67,9 +77,12 @@ class BooksApp extends React.Component {
 
   render() {   
    
-    const {books} = this.state;
-    return (
+    const {books, loading} = this.state;
+    return(
       <div className="app">
+
+      
+
          <Route path="/search" render={() => (
 
                <Search books={books} addNewBook={this.addNewBook}/>
@@ -77,23 +90,33 @@ class BooksApp extends React.Component {
          )}/>
          
          <Route exact path="/" render={
-          () => (            
+          () => (          
+            
+      
             <div>
+
+      
             <Header books={books}/>
           <div className="list-books-content">
-            <div>
-               <Books status={SHELF_1} books={books} shelfHandler={this.shelfHandler}/>
-               <Books status={SHELF_2} books={books} shelfHandler={this.shelfHandler}/>
-               <Books status={SHELF_3} books={books} shelfHandler={this.shelfHandler}/>
-       
-           
-            </div>
+          {loading ? (
+                   <Loader/>
+               ) : (    <div>
+                <Books status={SHELF_1} books={books} shelfHandler={this.shelfHandler}/>
+                <Books status={SHELF_2} books={books} shelfHandler={this.shelfHandler}/>
+                <Books status={SHELF_3} books={books} shelfHandler={this.shelfHandler}/>
+                
+            
+             </div>) }
+          
           </div>
           <div className="open-search">
             <Link to="/search">
             <button>Add a book</button>
             </Link>
           </div>
+
+
+
         </div>
           )}/>
         
