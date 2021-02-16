@@ -26,6 +26,9 @@ const Books = ({status,books,shelfHandler}) => {
         return sts;
     }
 
+    const currentShelf =   books.filter((b) => b.shelf === status)
+    const booksAmount = currentShelf.length; 
+
       
     return(
 
@@ -33,13 +36,13 @@ const Books = ({status,books,shelfHandler}) => {
     
         <div className="bookshelf">
             <h2 className="bookshelf-title">
-                {shelfStatus(status)}
+                {shelfStatus(status) + ' ' +booksAmount+ ' books'}
                 </h2>
             <div className="bookshelf-books">
                 <ol className="books-grid">
                 {
-                        books.filter((b) => b.shelf === status)
-                        .map((book) =>(
+                      
+                      currentShelf.map((book) =>(
                             <BookList books={book} key={book.id} shelfHandler={shelfHandler}/>
                         ))
                     }
