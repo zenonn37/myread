@@ -7,6 +7,7 @@ import Search from './components/Search';
 import { Route, Link } from "react-router-dom";
 import { motion } from 'framer-motion';
 import Loader from './components/Loader';
+import { fadeInUp } from "./animations/fadeUpIn";
 
 
 
@@ -14,6 +15,7 @@ import Loader from './components/Loader';
 const SHELF_1 = "currentlyReading";
 const SHELF_2 = "wantToRead";
 const SHELF_3 = "read";
+
 
 
 
@@ -100,13 +102,19 @@ class BooksApp extends React.Component {
           <div className="list-books-content">
           {loading ? (
                    <Loader/>
-               ) : (    <div>
-                <Books status={SHELF_1} books={books} shelfHandler={this.shelfHandler}/>
-                <Books status={SHELF_2} books={books} shelfHandler={this.shelfHandler}/>
-                <Books status={SHELF_3} books={books} shelfHandler={this.shelfHandler}/>
+               ) : (<motion.div
+                    variants={fadeInUp}  
+                    initial="initial"
+                    animate='animate'
+                
+                
+               >
+                   <Books status={SHELF_1} books={books} shelfHandler={this.shelfHandler}/>
+                   <Books status={SHELF_2} books={books} shelfHandler={this.shelfHandler}/>
+                   <Books status={SHELF_3} books={books} shelfHandler={this.shelfHandler}/>
                 
             
-             </div>) }
+                  </motion.div>) }
           
           </div>
           <div className="open-search">
