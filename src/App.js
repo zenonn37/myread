@@ -79,7 +79,7 @@ class BooksApp extends React.Component {
          <Route exact path="/" render={
           () => (            
             <div>
-            <Header/>
+            <Header books={books}/>
           <div className="list-books-content">
             <div>
                <Books status={SHELF_1} books={books} shelfHandler={this.shelfHandler}/>
