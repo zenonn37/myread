@@ -38,10 +38,7 @@ class BooksApp extends React.Component {
   };
 
   //handle indvidual book status
-  shelfHandler = (shelf,book) =>{
-       //do not allow the none option to be passed to update call
-        if (shelf === "none") return;        
-              
+  shelfHandler = (shelf,book) =>{                  
        
           
         
