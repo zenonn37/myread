@@ -101,7 +101,14 @@ class Search extends React.Component {
    .then((data) =>{
   
       
-     const update = this.state.search.map((b) => b.id === book.id ? {...b,shelf:shelf} : b);
+     const update = this.state.search.map((b) => b.id === book.id ? 
+     
+     
+    //  {...b,shelf:shelf} 
+
+     Object.assign({},b,{shelf:shelf})
+     
+     : b);
     
      this.setState(() =>({
        search:update
