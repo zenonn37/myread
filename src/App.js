@@ -20,11 +20,19 @@ class BooksApp extends React.Component {
   };
 
   //load server book shelf data
+  /**
+   * @description call loadData function on load.
+   * @returns {void} returns nothing
+   */
   componentDidMount() {
     this.loadAllData();
   }
 
   //book shelf api call function
+  /**
+   * @description Sets loading state,calls API and then sets loading and books state.
+   * @returns {void} returns nothing
+   */
   loadAllData = () => {
     this.setState(() => ({
       loading: true,
@@ -40,10 +48,15 @@ class BooksApp extends React.Component {
     });
   };
 
+  /**
+   * @description Updates books shelf status of books, filter out books status set to none
+   * @param {string} shelf - Status of book
+   * @param {object} book - Entire Book Object
+   * @returns {void} returns nothing
+   */
   //handle indvidual book status
   shelfHandler = (shelf, book) => {
     BooksAPI.update(book, shelf).then(() => {
-      //refactor code
       const update = this.state.books.map((b) =>
         b.id === book.id ? Object.assign({}, b, { shelf: shelf }) : b
       );
@@ -55,7 +68,11 @@ class BooksApp extends React.Component {
       }));
     });
   };
-
+  /**
+   * @description This will add new book from search results to book state with new status
+   * * @param {object} book - Entire Book Object
+   * @returns {void} returns nothing
+   */
   addNewBook = (book) => {
     this.setState((currentState) => ({
       books: currentState.books.concat([book]),

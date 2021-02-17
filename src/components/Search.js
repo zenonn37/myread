@@ -9,6 +9,14 @@ class Search extends React.Component {
     query: false,
   };
 
+  /**
+   * @description Search through raw book data,check for current book shelf matches and add shelf attribute to book object
+   *  @description Combine Book state with raw search data, and filter out duplicates.
+   *  @description set search state to new array data
+   * @param {string} query - User input from search field
+   * @returns {void} returns nothing
+   */
+
   searchBooks = (query) => {
     //do not allow empty query string to server
     if (query === "") {
@@ -71,6 +79,14 @@ class Search extends React.Component {
     });
   };
 
+  /**
+   *
+   ** @description Updates books shelf status of books, filter out books status set to none
+   @description Addes new book to book shelf and updates search state
+   * @param {string} shelf - Status of book
+   * @param {object} book - Entire Book Object
+    * @returns {void} returns nothing
+   */
   shelfHandler = (shelf, book) => {
     //do not allow the none option to be passed to update call
     if (shelf === "none") return;
@@ -100,14 +116,6 @@ class Search extends React.Component {
             <button className="close-search">Close</button>
           </Link>
           <div className="search-books-input-wrapper">
-            {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
             <input
               type="text"
               placeholder="Search by title or author"
