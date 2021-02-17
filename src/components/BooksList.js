@@ -6,12 +6,14 @@ import { motion } from "framer-motion";
 const BookList = ({books,shelfHandler}) => {
 
     const {title, authors,imageLinks,shelf} = books;
+
+    
     
    return(
   
         
                     <motion.li   
-                    whileHover={{ scale: 1.2 }}>
+                    whileHover={{ scale: 1.1 }}>
                         <div className="book">
                             <div className="book-top">
                                 {imageLinks ?  (
@@ -29,9 +31,15 @@ const BookList = ({books,shelfHandler}) => {
                             </div>
                             <div className="book-title">{title}</div>
                             <div className="book-authors">
-                                {authors && authors.map((author) =>(
-                                    <span key={author}>{author}</span>
-                                ))}
+                                 {authors ? (
+                                     authors.map((author) =>(
+                                        <div key={author}>{author}</div>
+                                    ))
+
+                                 ) : (
+                                    <span>No authors found.</span>
+                                 ) }
+                              
                             </div>
                         </div>
                     </motion.li>
