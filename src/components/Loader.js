@@ -14,9 +14,15 @@ function Loader() {
                    >
                  
                    <motion.div 
+                      initial="initial"
                       variants={loaderVariants}
-                      animate='animation'
-                   className="ball"></motion.div>
+                      animate='animate'
+
+                  >
+                    
+                    Loading....
+
+                  </motion.div>
 
                    </motion.div>
     )

@@ -216,9 +216,3 @@ button:active {
   align-items: center;
   justify-content: center;
 }
-.loader > .ball {
-  width: 20px;
-  height: 20px;
-  background: rgb(107, 107, 155);
-  border-radius: 50%;
-}

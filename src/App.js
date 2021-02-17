@@ -41,10 +41,13 @@ class BooksApp extends React.Component {
     BooksAPI.getAll()
     .then((data) =>{
          //set the state with results
-         this.setState(() =>({
-           books:data,
-           loading:false
-         }));
+       
+          this.setState(() =>({
+            books:data,
+            loading:false
+          }));
+       
+       
      
        
     });
