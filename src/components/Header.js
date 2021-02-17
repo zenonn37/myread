@@ -17,14 +17,14 @@ const  Header = ({books,loading}) => {
           <motion.h1
           initial={{opacity:0}}
           animate={{opacity:1}}
-           transition={{delay:2}}
+           transition={{delay:1}}
           >MyReads</motion.h1>
 
           {loading ?  "" : ( 
           <motion.h3  
           initial={{x:100,opacity:0}}
           animate={{x:0,opacity:1}}
-           transition={{delay:2.0}}
+           transition={{delay:1.1}}
           >
           Current Book Shelf : {bookCount}
         </motion.h3>
