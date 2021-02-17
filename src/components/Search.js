@@ -155,7 +155,7 @@ class Search extends React.Component {
                     ))
                    ) :
                    (
-                     <div>No data</div>
+                     <div>No data enter a book or author.</div>
                    )
                  }
                
