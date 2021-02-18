@@ -5,7 +5,7 @@ import * as BooksAPI from "../BooksAPI";
 
 class Search extends React.Component {
   state = {
-    search: [],
+    search: "",
     query: false,
   };
 
@@ -18,16 +18,18 @@ class Search extends React.Component {
    */
 
   searchBooks = (query) => {
-    //do not allow empty query string to server
-    if (query === "") {
-      //set query guard to false
-      this.setState(() => ({
-        search: [],
-        query: false,
-      }));
-      return;
-    }
+    // //do not allow empty query string to server
+    // if (query === "") {
+    //   console.log("test algo");
+    //   //set query guard to false
 
+    // }
+    this.setState(() => ({
+      search: [],
+      query: false,
+    }));
+
+    if (query === "") return;
     BooksAPI.search(query).then((data) => {
       //handle query errors
       if (data.error === "undefined" || data.error === "empty query") {
