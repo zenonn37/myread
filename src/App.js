@@ -55,7 +55,7 @@ class BooksApp extends React.Component {
    * @returns {void} returns nothing
    */
   //handle indvidual book status
-  shelfHandler = (shelf, book) => {
+  shelfHandlerMain = (shelf, book) => {
     BooksAPI.update(book, shelf).then(() => {
       const update = this.state.books.map((b) =>
         b.id === book.id ? Object.assign({}, b, { shelf: shelf }) : b
@@ -85,7 +85,13 @@ class BooksApp extends React.Component {
       <div className="app">
         <Route
           path="/search"
-          render={() => <Search books={books} addNewBook={this.addNewBook} />}
+          render={() => (
+            <Search
+              books={books}
+              addNewBook={this.addNewBook}
+              shelfHandlerMain={this.shelfHandlerMain}
+            />
+          )}
         />
 
         <Route
@@ -107,17 +113,17 @@ class BooksApp extends React.Component {
                     <Books
                       status={SHELF_1}
                       books={books}
-                      shelfHandler={this.shelfHandler}
+                      shelfHandler={this.shelfHandlerMain}
                     />
                     <Books
                       status={SHELF_2}
                       books={books}
-                      shelfHandler={this.shelfHandler}
+                      shelfHandler={this.shelfHandlerMain}
                     />
                     <Books
                       status={SHELF_3}
                       books={books}
-                      shelfHandler={this.shelfHandler}
+                      shelfHandler={this.shelfHandlerMain}
                     />
                   </motion.div>
                 )}

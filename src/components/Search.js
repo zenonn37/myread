@@ -108,6 +108,9 @@ class Search extends React.Component {
     //do not allow the none option to be passed to update call
     if (shelf === "none") return;
 
+    //update books on current shelf
+    this.props.shelfHandlerMain(shelf, book);
+
     //add books to shelf from search
     BooksAPI.update(book, shelf).then((data) => {
       const update = this.state.search.map((b) =>
@@ -121,6 +124,7 @@ class Search extends React.Component {
       this.setState(() => ({
         search: update,
       }));
+
       this.props.addNewBook({ ...book, shelf });
     });
   };
