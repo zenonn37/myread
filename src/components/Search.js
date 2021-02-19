@@ -116,56 +116,44 @@ class Search extends React.Component {
     const bks = this.props.books.find((bk) => bk.id === book.id);
 
     if (bks) {
-      BooksAPI.update(book, shelf).then((data) => {
-        const update = this.state.search.map((b) =>
-          b.id === book.id
-            ? //  {...b,shelf:shelf}
-
-              Object.assign({}, b, { shelf: shelf })
-            : b
-        );
-
-        this.setState(() => ({
-          search: update,
-        }));
-        this.props.shelfHandlerMain(shelf, book);
-      });
+      this.updateSearch(book, shelf)
+        .then(() => {
+          this.props.shelfHandlerMain(shelf, book);
+        })
+        .catch(() => {
+          alert("Server Error please try again.");
+        });
     } else {
-      BooksAPI.update(book, shelf).then((data) => {
-        const update = this.state.search.map((b) =>
-          b.id === book.id
-            ? //  {...b,shelf:shelf}
-
-              Object.assign({}, b, { shelf: shelf })
-            : b
-        );
-
-        this.setState(() => ({
-          search: update,
-        }));
-
-        this.props.addNewBook({ ...book, shelf });
-      });
+      this.updateSearch(book, shelf)
+        .then(() => {
+          this.props.addNewBook({ ...book, shelf });
+        })
+        .catch(() => {
+          alert("Server Error please try again.");
+        });
     }
-    // updateSearch = () => {
-    //   BooksAPI.update(book, shelf).then((data) => {
-    //     const update = this.state.search.map((b) =>
-    //       b.id === book.id
-    //         ? //  {...b,shelf:shelf}
 
-    //           Object.assign({}, b, { shelf: shelf })
-    //         : b
-    //     );
-
-    //     this.setState(() => ({
-    //       search: update,
-    //     }));
-
-    //     this.props.addNewBook({ ...book, shelf });
-    //   });
-    // }
-    //add books to shelf from search
+    // add books to shelf from search
   };
+  updateSearch = (book, shelf) => {
+    return new Promise((resolve, reject) => {
+      BooksAPI.update(book, shelf)
+        .then((data) => {
+          const update = this.state.search.map((b) =>
+            b.id === book.id ? Object.assign({}, b, { shelf: shelf }) : b
+          );
+
+          this.setState(() => ({
+            search: update,
+          }));
+          resolve(true);
+        })
+        .catch(() => {
+          reject(false);
+        });
+    });
+  };
+
   render() {
     const { search, query } = this.state;
     return (
