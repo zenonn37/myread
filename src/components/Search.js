@@ -8,6 +8,7 @@ class Search extends React.Component {
     search: "",
     query: false,
     userInput: "",
+    rawData: "",
   };
 
   /**
@@ -76,6 +77,9 @@ class Search extends React.Component {
         ...e,
         shelf: "none",
       }));
+      this.setState(() => ({
+        rawData: sFinal,
+      }));
       //combine two shelf and updated search results
       const appendShelf = [...shelf, ...sFinal];
 
@@ -109,24 +113,32 @@ class Search extends React.Component {
     if (shelf === "none") return;
 
     //update books on current shelf
-    this.props.shelfHandlerMain(shelf, book);
+    const bks = this.props.books.find((bk) => bk.id === book.id);
+
+    if (bks) {
+      console.log("found");
+      console.log(bks);
+      this.props.shelfHandlerMain(shelf, book);
+    } else {
+      console.log("no book");
+      BooksAPI.update(book, shelf).then((data) => {
+        const update = this.state.search.map((b) =>
+          b.id === book.id
+            ? //  {...b,shelf:shelf}
+
+              Object.assign({}, b, { shelf: shelf })
+            : b
+        );
+
+        this.setState(() => ({
+          search: update,
+        }));
+
+        this.props.addNewBook({ ...book, shelf });
+      });
+    }
 
     //add books to shelf from search
-    BooksAPI.update(book, shelf).then((data) => {
-      const update = this.state.search.map((b) =>
-        b.id === book.id
-          ? //  {...b,shelf:shelf}
-
-            Object.assign({}, b, { shelf: shelf })
-          : b
-      );
-
-      this.setState(() => ({
-        search: update,
-      }));
-
-      this.props.addNewBook({ ...book, shelf });
-    });
   };
   render() {
     const { search, query } = this.state;
