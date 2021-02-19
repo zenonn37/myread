@@ -26,7 +26,6 @@ class Search extends React.Component {
       this.setState(() => ({
         search: "",
         query: false,
-        userInput: "",
       }));
 
       return;
@@ -112,9 +111,9 @@ class Search extends React.Component {
     //do not allow the none option to be passed to update call
     if (shelf === "none") return;
 
-    //update books on current shelf
+    //checks if this book is already on a user shelf
     const bks = this.props.books.find((bk) => bk.id === book.id);
-
+    //check book status, then update book on shelf or add new book to shelf with new status
     if (bks) {
       this.updateSearch(book, shelf)
         .then(() => {
@@ -135,6 +134,12 @@ class Search extends React.Component {
 
     // add books to shelf from search
   };
+  /**
+   * @description Updates books shelf status of books, search state, and will update books shelf or add a new book to shelf
+   * @param {string} shelf - Status of book
+   * @param {object} book - Entire Book Object
+   * @returns {promise} returns nothing
+   */
   updateSearch = (book, shelf) => {
     return new Promise((resolve, reject) => {
       BooksAPI.update(book, shelf)
