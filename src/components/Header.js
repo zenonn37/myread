@@ -15,7 +15,7 @@ const Header = ({ books, loading }) => {
           >
             MyReads
           </motion.h1>
-
+          {/* Dont show book count until books are  loaded from API */}
           {loading ? (
             ""
           ) : (

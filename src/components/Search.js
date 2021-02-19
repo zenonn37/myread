@@ -11,10 +11,9 @@ class Search extends React.Component {
   };
 
   /**
-   * @description Search through raw book data,check for current book shelf matches and add shelf attribute to book object
-   *  @description Combine Book state with raw search data, and filter out duplicates.
-   *  @description set search state to new array data
-   * @param {string} query - User input from search field
+   * @description Checks if user input is valid, if not resets current state and ends function
+   * @description If input is valid set userInput and call  searchBooksQuery when state is updated
+   * @param {string} event - User input value from search field
    * @returns {void} returns nothing
    */
 
@@ -36,6 +35,13 @@ class Search extends React.Component {
       this.searchBooksQuery(this.state.userInput)
     );
   };
+  /**
+   * @description Search through raw book data,check for current book shelf matches and add shelf attribute to book object
+   *  @description Combine Book state with raw search data, and filter out duplicates.
+   *  @description Set search state to new array data
+   * @param {string} query - User input from userInput state
+   * @returns {void} returns nothing
+   */
   searchBooksQuery = (query) => {
     BooksAPI.search(query).then((data) => {
       //handle query errors
@@ -127,6 +133,7 @@ class Search extends React.Component {
             <button className="close-search">Close</button>
           </Link>
           <div className="search-books-input-wrapper">
+            {/* Search input uncontrolled, onchange calls search books every keystroke*/}
             <input
               type="text"
               placeholder="Search by title or author"
@@ -135,6 +142,11 @@ class Search extends React.Component {
           </div>
         </div>
         <div className="search-books-results">
+          {/* 
+             Check query status, then map over search results. If query is false
+             simply return no data.
+            
+            */}
           <ol className="books-grid">
             {query ? (
               search.map((search) => (

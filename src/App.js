@@ -95,6 +95,7 @@ class BooksApp extends React.Component {
             <div>
               <Header books={books} loading={loading} />
               <div className="list-books-content">
+                {/* Show loader until all books are loaded*/}
                 {loading ? (
                   <Loader />
                 ) : (

@@ -9,6 +9,10 @@ const BookList = ({ books, shelfHandler }) => {
     <motion.li whileHover={{ scale: 1.1 }}>
       <div className="book">
         <div className="book-top">
+          {/* 
+            Check for images and render them, if no images exist
+            render empty book cover.
+          */}
           {imageLinks ? (
             <div
               className="book-cover"
@@ -29,6 +33,7 @@ const BookList = ({ books, shelfHandler }) => {
             />
           )}
           <div className="book-shelf-changer">
+            {/* Select to change status of a book Instance*/}
             <SelectComp
               shelf={shelf}
               book={books}
@@ -38,6 +43,7 @@ const BookList = ({ books, shelfHandler }) => {
         </div>
         <div className="book-title">{title}</div>
         <div className="book-authors">
+          {/* Search input uncontrolled, onchange calls search books every keystroke*/}
           {authors ? (
             authors.map((author) => <div key={author}>{author}</div>)
           ) : (
