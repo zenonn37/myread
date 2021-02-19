@@ -116,11 +116,21 @@ class Search extends React.Component {
     const bks = this.props.books.find((bk) => bk.id === book.id);
 
     if (bks) {
-      console.log("found");
-      console.log(bks);
-      this.props.shelfHandlerMain(shelf, book);
+      BooksAPI.update(book, shelf).then((data) => {
+        const update = this.state.search.map((b) =>
+          b.id === book.id
+            ? //  {...b,shelf:shelf}
+
+              Object.assign({}, b, { shelf: shelf })
+            : b
+        );
+
+        this.setState(() => ({
+          search: update,
+        }));
+        this.props.shelfHandlerMain(shelf, book);
+      });
     } else {
-      console.log("no book");
       BooksAPI.update(book, shelf).then((data) => {
         const update = this.state.search.map((b) =>
           b.id === book.id
@@ -137,7 +147,23 @@ class Search extends React.Component {
         this.props.addNewBook({ ...book, shelf });
       });
     }
+    // updateSearch = () => {
+    //   BooksAPI.update(book, shelf).then((data) => {
+    //     const update = this.state.search.map((b) =>
+    //       b.id === book.id
+    //         ? //  {...b,shelf:shelf}
 
+    //           Object.assign({}, b, { shelf: shelf })
+    //         : b
+    //     );
+
+    //     this.setState(() => ({
+    //       search: update,
+    //     }));
+
+    //     this.props.addNewBook({ ...book, shelf });
+    //   });
+    // }
     //add books to shelf from search
   };
   render() {
