@@ -7,6 +7,7 @@ class Search extends React.Component {
   state = {
     search: "",
     query: false,
+    userInput: "",
   };
 
   /**
@@ -17,19 +18,25 @@ class Search extends React.Component {
    * @returns {void} returns nothing
    */
 
-  searchBooks = (query) => {
-    // //do not allow empty query string to server
-    // if (query === "") {
-    //   console.log("test algo");
-    //   //set query guard to false
+  searchBooks = (e) => {
+    e.preventDefault();
 
-    // }
-    this.setState(() => ({
-      search: [],
-      query: false,
-    }));
+    const input = e.target.value;
+    if (input === "") {
+      this.setState(() => ({
+        search: "",
+        query: false,
+        userInput: "",
+      }));
 
-    if (query === "") return;
+      return;
+    }
+
+    this.setState({ userInput: e.target.value }, () =>
+      this.searchBooksQuery(this.state.userInput)
+    );
+  };
+  searchBooksQuery = (query) => {
     BooksAPI.search(query).then((data) => {
       //handle query errors
       if (data.error === "undefined" || data.error === "empty query") {
@@ -74,10 +81,12 @@ class Search extends React.Component {
       );
       //set new state form new array
       //set query guard to true
-      this.setState(() => ({
-        search: view,
-        query: true,
-      }));
+      if (this.state.userInput === query) {
+        this.setState(() => ({
+          search: view,
+          query: true,
+        }));
+      }
     });
   };
 
@@ -121,7 +130,7 @@ class Search extends React.Component {
             <input
               type="text"
               placeholder="Search by title or author"
-              onChange={(e) => this.searchBooks(e.target.value)}
+              onChange={(e) => this.searchBooks(e)}
             />
           </div>
         </div>
